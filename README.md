@@ -2,19 +2,13 @@
 
 JavaScript operators, decoded.
 
-A visual field guide to JavaScript's operators. One page per operator, interactive, in the browser.
+A visual field guide to JavaScript's operators.
 
 Live at [marcusmichaels.com/runes](https://marcusmichaels.com/runes).
-
-## What this is
-
-MDN tells you what `%` does in a paragraph. That's fine, but I wanted to watch it work. So: one small interactive page per operator.
 
 ## How it's built
 
 Vanilla. No React, no TypeScript, no bundler. Two files per page (`index.html` + `script.js`). Shared theme, favicon, and two small web components (`<runes-header>` + `<runes-footer>`) live in `shared/`.
-
-If you want to know how a page works, the source is right there.
 
 ## Run locally
 
