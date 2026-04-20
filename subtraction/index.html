@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="../shared/rune-r.svg" />
+
+    <title>Subtraction, visually — understand JavaScript's − operator</title>
+    <meta
+      name="description"
+      content="A hands-on guide to JavaScript's subtraction (−) operator: see one number pulled back by another on a number line, and why − never does string concatenation."
+    />
+    <meta
+      name="keywords"
+      content="javascript, subtraction, minus operator, coercion, interactive, learn javascript, visual"
+    />
+    <link rel="canonical" href="https://marcusmichaels.com/runes/subtraction/" />
+
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Subtraction, visually — understand JavaScript's − operator"
+    />
+    <meta
+      property="og:description"
+      content="Two interactive visualisations for JavaScript's − operator: vectors on a number line, and how minus is always arithmetic, never concatenation."
+    />
+    <meta
+      property="og:url"
+      content="https://marcusmichaels.com/runes/subtraction/"
+    />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Subtraction, visually — understand JavaScript's − operator"
+    />
+    <meta
+      name="twitter:description"
+      content="Two interactive visualisations for JavaScript's − operator: vectors on a number line, and how minus is always arithmetic, never concatenation."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Subtraction, visually",
+        "description": "A hands-on, interactive guide to JavaScript's subtraction (−) operator with two visualisations.",
+        "learningResourceType": "Interactive Tutorial",
+        "educationalLevel": "Beginner",
+        "inLanguage": "en",
+        "url": "https://marcusmichaels.com/runes/subtraction/",
+        "about": {
+          "@type": "Thing",
+          "name": "JavaScript subtraction operator"
+        },
+        "teaches": "How the − operator works: stepping back on a number line, why order matters, and why minus always coerces to numbers."
+      }
+    </script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/thisismodest/modest-ui@v0.2.0/dist/modest-ui.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../shared/global.css" />
+  </head>
+  <body class="mdst-ui">
+    <runes-header home="../"></runes-header>
+
+    <h1>Subtraction</h1>
+    <p class="phonetic">/səbˈtrakʃ(ə)n/</p>
+    <div class="rune" aria-hidden="true">−</div>
+    <p>
+      <code>a − b</code> pulls you back. Start at zero, step out to
+      <code>a</code>, then step <em>back</em> by <code>b</code>. Where you land
+      is the answer. Unlike addition, order matters &mdash;
+      <code>5 − 2</code> is not <code>2 − 5</code>.
+    </p>
+
+    <section>
+      <h2>On a number line</h2>
+      <p>
+        First vector goes to <code>a</code>. Second vector reverses direction
+        and pulls back by <code>b</code>. Swap <code>a</code> and
+        <code>b</code> with the sliders to feel why order matters.
+      </p>
+      <div class="controls">
+        <label>
+          a =
+          <input id="nl-a" type="range" min="-8" max="8" value="5" />
+          <span class="counter" id="nl-a-val">5</span>
+        </label>
+        <label>
+          b =
+          <input id="nl-b" type="range" min="-8" max="8" value="2" />
+          <span class="counter" id="nl-b-val">2</span>
+        </label>
+      </div>
+      <div id="nl-viz" class="number-line"></div>
+      <div class="formula" id="nl-formula"></div>
+    </section>
+
+    <section>
+      <h2>Always numeric</h2>
+      <p>
+        Where <code>+</code> hedges &mdash; if either side is a string, it glues
+        instead of adds &mdash; <code>−</code> never does. Minus always tries to
+        coerce both sides to numbers. Anything that can't become a number comes
+        out as <code>NaN</code>.
+      </p>
+      <div class="controls" id="an-presets"></div>
+      <div class="formula" id="an-formula"></div>
+      <p class="note" id="an-note"></p>
+    </section>
+
+    <runes-footer home="../"></runes-footer>
+
+    <script src="script.js"></script>
+    <script src="../shared/runes-header.js"></script>
+    <script src="../shared/runes-footer.js"></script>
+  </body>
+</html>

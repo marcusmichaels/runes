@@ -9,7 +9,7 @@ A goal-ordered list of 50 operators to build interactive, visual explainers for.
 ## 1. Arithmetic (10)
 
 - [x] 01. `+` Addition — a number line with two vectors sliding and combining. Edge case: `+` with strings (concatenation) shown as typed dominoes joining.
-- [ ] 02. `-` Subtraction — inverse of addition on the number line; show the direction matters (`5 - 2` vs `2 - 5`).
+- [x] 02. `-` Subtraction — inverse of addition on the number line; show the direction matters (`5 - 2` vs `2 - 5`).
 - [ ] 03. `*` Multiplication — area grid (`3 × 4` as rows × columns of tiles). Visually motivates why it's repeated addition.
 - [ ] 04. `/` Division — `a` dots split into `b` equal stacks; show `a / b` as stack height and the remainder disappearing (sets up modulo).
 - [x] 05. `%` Modulo — dots packed into groups of `b`; leftover = remainder. Plus a cycle/clock and `arr[i % arr.length]`.

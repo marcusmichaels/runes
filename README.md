@@ -39,7 +39,7 @@ runes/
 
 ## Progress
 
-2 decoded so far. See [roadmap.md](./roadmap.md) for the full list.
+3 decoded so far. See [roadmap.md](./roadmap.md) for the full list.
 
 ## Adding more
 

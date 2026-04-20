@@ -203,6 +203,7 @@ section p {
   background: #fff;
   border: 1px solid var(--color-hairline);
   border-radius: 12px;
+  text-align: center;
   text-decoration: none;
   color: inherit;
   min-height: 160px;
