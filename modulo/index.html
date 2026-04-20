@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="../shared/rune-r.svg" />
+
+    <title>Modulo, visually — understand JavaScript's % operator</title>
+    <meta
+      name="description"
+      content="A hands-on, interactive guide to JavaScript's modulo (%) operator: three visualisations — remainder as leftover dots, cycle counters, and safely wrapping an array index."
+    />
+    <meta
+      name="keywords"
+      content="javascript, modulo, operator, remainder, interactive, learn javascript, visual, cheatsheet"
+    />
+    <link rel="canonical" href="https://marcusmichaels.com/runes/modulo/" />
+
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Modulo, visually — understand JavaScript's % operator"
+    />
+    <meta
+      property="og:description"
+      content="Three interactive visualisations that make JavaScript's modulo (%) operator click."
+    />
+    <meta property="og:url" content="https://marcusmichaels.com/runes/modulo/" />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Modulo, visually — understand JavaScript's % operator"
+    />
+    <meta
+      name="twitter:description"
+      content="Three interactive visualisations that make JavaScript's modulo (%) operator click."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Modulo, visually",
+        "description": "A hands-on, interactive guide to JavaScript's modulo (%) operator with three visualisations.",
+        "learningResourceType": "Interactive Tutorial",
+        "educationalLevel": "Beginner",
+        "inLanguage": "en",
+        "url": "https://marcusmichaels.com/runes/modulo/",
+        "about": {
+          "@type": "Thing",
+          "name": "JavaScript modulo operator"
+        },
+        "teaches": "How the modulo operator works: remainders, cyclic wrap-around, and indexing arrays safely with arr[i % arr.length]."
+      }
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/thisismodest/modest-ui@v0.2.0/dist/modest-ui.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../shared/global.css" />
+  </head>
+  <body class="mdst-ui">
+    <runes-header home="../"></runes-header>
+
+    <h1>Modulo</h1>
+    <p class="phonetic">/ˈmɒdjʊləʊ/</p>
+    <div class="rune" aria-hidden="true">%</div>
+    <p>
+      <code>a % b</code> gives you the <strong>remainder</strong> after dividing
+      <code>a</code> by <code>b</code>. Three ways to see what that means.
+    </p>
+
+    <section>
+      <h2>Divide, keep the leftovers</h2>
+      <p>
+        Imagine <code>a</code> dots you want to pack into groups of
+        <code>b</code>. Full groups (teal) tile away; what's <em>left over</em>
+        (rust) is the modulo.
+      </p>
+      <div class="controls">
+        <label>
+          a =
+          <input id="r-a" type="range" min="0" max="30" value="17" />
+          <span class="counter" id="r-a-val">17</span>
+        </label>
+        <label>
+          b =
+          <input id="r-b" type="range" min="1" max="10" value="5" />
+          <span class="counter" id="r-b-val">5</span>
+        </label>
+      </div>
+      <div id="r-dots" class="dots"></div>
+      <div class="formula" id="r-formula"></div>
+    </section>
+
+    <section>
+      <h2>The cycle</h2>
+      <p>
+        Keep counting up <code>n</code>. The value of
+        <code>n % b</code> wraps back to 0 every time <code>n</code> reaches
+        <code>b</code>. It's how clocks work &mdash; after 11 comes 0, not 12.
+      </p>
+      <div class="controls">
+        <label>
+          b =
+          <input id="c-b" type="range" min="2" max="10" value="5" />
+          <span class="counter" id="c-b-val">5</span>
+        </label>
+        <button id="c-step" type="button">Step +1</button>
+        <button id="c-play" type="button">Auto-play</button>
+        <button id="c-reset" type="button">Reset</button>
+      </div>
+      <div class="formula" id="c-formula"></div>
+      <div id="c-slots" class="slots"></div>
+    </section>
+
+    <section>
+      <h2>Cycling through an array</h2>
+      <p>
+        The classic practical use: <code>arr[i % arr.length]</code> lets a
+        counter safely index an array forever, wrapping back to the start each
+        time it reaches the end.
+      </p>
+      <div class="controls">
+        <button id="a-step" type="button">Step +1</button>
+        <button id="a-play" type="button">Auto-play</button>
+        <button id="a-reset" type="button">Reset</button>
+      </div>
+      <div class="formula" id="a-formula"></div>
+      <div id="a-items" class="array-items"></div>
+    </section>
+
+    <runes-footer home="../"></runes-footer>
+
+    <script src="script.js"></script>
+    <script src="../shared/runes-header.js"></script>
+    <script src="../shared/runes-footer.js"></script>
+  </body>
+</html>

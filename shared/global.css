@@ -1,0 +1,344 @@
+/* Runes — shared styles. Every page links this file and nothing else. */
+
+:root {
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-accent: #6b8e8a;
+  --color-accent-soft: #e6ede9;
+  --color-remainder: #b86a52;
+  --color-remainder-soft: #f7ede7;
+  --color-highlight: #f3e8d3;
+  --color-highlight-border: #b8935a;
+  --color-ink: #2b2b2b;
+  --color-muted: #8a8578;
+  --color-hairline: #e6e1d7;
+  --color-page: #faf7f1;
+}
+
+/* Page shell */
+body.mdst-ui {
+  max-width: 960px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem 4rem;
+  text-align: center;
+  background: var(--color-page);
+  color: var(--color-ink);
+  counter-reset: section;
+}
+
+/* Typography */
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 3.5rem;
+  letter-spacing: -0.015em;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+header {
+  margin-bottom: 2.5rem;
+}
+
+.phonetic {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-muted);
+  font-size: 1.15rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--color-muted);
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+/* The rune itself — the operator symbol rendered as a hero sigil.
+   Mono so `&&=`, `??=`, `>>>` stay legible. */
+.rune {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-accent);
+  margin-top: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Intro block — readable width, inherits centered alignment. */
+.intro {
+  max-width: 560px;
+  margin: 0 auto 1rem;
+  line-height: 1.6;
+}
+
+.progress {
+  font-family: var(--font-mono);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+.progress strong {
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sections are the operator-page pattern. The homepage uses <div class="category">
+   instead, so these rules don't fire there. */
+section {
+  margin: 3.5rem 0;
+  padding-top: 2rem;
+}
+section + section {
+  border-top: 1px solid var(--color-hairline);
+}
+section h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+}
+section h2::before {
+  counter-increment: section;
+  content: counter(section, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--color-hairline);
+  margin-bottom: 0.5rem;
+}
+section p {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Interactive controls row. */
+.controls {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1.5rem 0 1rem;
+}
+.controls label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Live value counter — tabular-nums so digits don't jitter. */
+.counter {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  min-width: 2ch;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Formula chip — the pill showing the live computation. */
+.formula {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  background: #fff;
+  border: 1px solid var(--color-hairline);
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Category grouping — homepage groups of runes. */
+.category {
+  margin: 3rem 0 2rem;
+  text-align: left;
+}
+.category h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--color-muted);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+/* Grid of rune cards on the homepage. */
+.runes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px;
+}
+.rune-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 1.5rem 1rem 1.25rem;
+  background: #fff;
+  border: 1px solid var(--color-hairline);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  min-height: 160px;
+}
+a.rune-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 6px 16px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-accent);
+}
+.rune-card--todo {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.rune-card-symbol {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: var(--color-accent);
+  line-height: 1;
+  min-height: 2.25rem;
+  display: flex;
+  align-items: center;
+}
+.rune-card--todo .rune-card-symbol {
+  color: var(--color-muted);
+}
+.rune-card-name {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 1.05rem;
+}
+.rune-card-hint {
+  font-size: 0.82rem;
+  color: var(--color-muted);
+  line-height: 1.35;
+}
+
+/* Dots visualisation — groups of uniform dots with a "leftover" variant. */
+.dots {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.25rem 0;
+}
+.group {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 999px;
+  background: var(--color-accent-soft);
+}
+.group--remainder {
+  border-color: var(--color-remainder);
+  background: var(--color-remainder-soft);
+}
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+.dot--remainder {
+  background: var(--color-remainder);
+}
+
+/* Slot row — for cycle/clock-style visualisations. */
+.slots {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.25rem 0;
+}
+.slot {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--color-hairline);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  background: #fff;
+  color: var(--color-muted);
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    transform 200ms ease;
+}
+.slot.active {
+  background: var(--color-highlight);
+  border-color: var(--color-highlight-border);
+  color: var(--color-ink);
+  transform: scale(1.08);
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(184, 147, 90, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(184, 147, 90, 0);
+  }
+}
+.slot.wrapped {
+  animation: pulse 600ms ease-out;
+}
+
+/* Array-cycling visualisation — coloured tiles, one highlights as i % n moves. */
+.array-items {
+  display: flex;
+  gap: 10px;
+  margin: 1.25rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.array-item {
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #fff;
+  opacity: 0.35;
+  transition:
+    opacity 250ms ease,
+    transform 250ms ease;
+}
+.array-item.active {
+  opacity: 1;
+  transform: scale(1.1);
+}

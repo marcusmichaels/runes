@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="shared/rune-r.svg" />
+
+    <title>Runes — JavaScript operators, decoded</title>
+    <meta
+      name="description"
+      content="A visual field guide to JavaScript's 50 operators. Each rune is explained with interactive examples — remainders, cycles, coercion, bits, and more."
+    />
+    <meta
+      name="keywords"
+      content="javascript, operators, interactive, learn javascript, visual, cheatsheet, modulo, equality, bitwise, nullish, spread"
+    />
+    <link rel="canonical" href="https://marcusmichaels.com/runes/" />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Runes — JavaScript operators, decoded"
+    />
+    <meta
+      property="og:description"
+      content="A visual field guide to JavaScript's 50 operators, each made click with interactive examples."
+    />
+    <meta property="og:url" content="https://marcusmichaels.com/runes/" />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Runes — JavaScript operators, decoded"
+    />
+    <meta
+      name="twitter:description"
+      content="A visual field guide to JavaScript's 50 operators, each made click with interactive examples."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Runes — JavaScript operators, decoded",
+        "description": "A visual field guide to JavaScript's 50 operators, each explained with interactive examples.",
+        "inLanguage": "en",
+        "url": "https://marcusmichaels.com/runes/",
+        "hasPart": [
+          {
+            "@type": "LearningResource",
+            "name": "Modulo, visually",
+            "url": "https://marcusmichaels.com/runes/modulo/",
+            "learningResourceType": "Interactive Tutorial",
+            "about": { "@type": "Thing", "name": "JavaScript modulo operator" }
+          }
+        ]
+      }
+    </script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/thisismodest/modest-ui@v0.2.0/dist/modest-ui.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="shared/global.css" />
+  </head>
+  <body class="mdst-ui">
+    <runes-header home="./"></runes-header>
+
+    <header>
+      <h1>Runes</h1>
+      <p class="tagline">JavaScript operators, decoded</p>
+    </header>
+
+    <div class="intro">
+      <p>
+        A visual field guide to JavaScript's operators. Each rune is a dense,
+        encoded symbol you learn to read &mdash; one page per operator, made
+        click with interactive examples instead of more words.
+      </p>
+    </div>
+    <p class="progress"><strong>1</strong> of <strong>50</strong> decoded</p>
+
+    <div class="category">
+      <h2>Arithmetic</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">+</div>
+          <div class="rune-card-name">Addition</div>
+          <div class="rune-card-hint">Sum of two values</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&minus;</div>
+          <div class="rune-card-name">Subtraction</div>
+          <div class="rune-card-hint">Difference between two numbers</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&times;</div>
+          <div class="rune-card-name">Multiplication</div>
+          <div class="rune-card-hint">Product of two numbers</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&divide;</div>
+          <div class="rune-card-name">Division</div>
+          <div class="rune-card-hint">Quotient of two numbers</div>
+        </div>
+        <a href="modulo/" class="rune-card">
+          <div class="rune-card-symbol">%</div>
+          <div class="rune-card-name">Modulo</div>
+          <div class="rune-card-hint">Remainder after division</div>
+        </a>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">**</div>
+          <div class="rune-card-name">Exponentiation</div>
+          <div class="rune-card-hint">Raise to a power</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">++</div>
+          <div class="rune-card-name">Increment</div>
+          <div class="rune-card-hint">Add one, in place</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&minus;&minus;</div>
+          <div class="rune-card-name">Decrement</div>
+          <div class="rune-card-hint">Subtract one, in place</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">+x</div>
+          <div class="rune-card-name">Unary plus</div>
+          <div class="rune-card-hint">Coerce to number</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&minus;x</div>
+          <div class="rune-card-name">Unary minus</div>
+          <div class="rune-card-hint">Negate a number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Assignment</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">=</div>
+          <div class="rune-card-name">Assignment</div>
+          <div class="rune-card-hint">Store a value in a variable</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">+=</div>
+          <div class="rune-card-name">Compound arithmetic</div>
+          <div class="rune-card-hint">Operate and store in one step</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">**=</div>
+          <div class="rune-card-name">Exponent assign</div>
+          <div class="rune-card-hint">Raise and store</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">[a,b]=</div>
+          <div class="rune-card-name">Array destructure</div>
+          <div class="rune-card-hint">Unpack an array into variables</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">{a,b}=</div>
+          <div class="rune-card-name">Object destructure</div>
+          <div class="rune-card-hint">Pull keys into variables</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&amp;&amp;=</div>
+          <div class="rune-card-name">AND assign</div>
+          <div class="rune-card-hint">Assign only if truthy</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">||=</div>
+          <div class="rune-card-name">OR / nullish assign</div>
+          <div class="rune-card-hint">Assign only if falsy or nullish</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Comparison</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">==</div>
+          <div class="rune-card-name">Loose equality</div>
+          <div class="rune-card-hint">Equal after coercion</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">===</div>
+          <div class="rune-card-name">Strict equality</div>
+          <div class="rune-card-hint">Same type, same value</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">!=</div>
+          <div class="rune-card-name">Inequality</div>
+          <div class="rune-card-hint">Not equal (loose / strict)</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&lt;&gt;</div>
+          <div class="rune-card-name">Relational</div>
+          <div class="rune-card-hint">Less / greater than (or equal)</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">Object.is</div>
+          <div class="rune-card-name">Object.is</div>
+          <div class="rune-card-hint">Equality handling NaN and -0</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">.includes</div>
+          <div class="rune-card-name">.includes</div>
+          <div class="rune-card-hint">Membership via SameValueZero</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Logical</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&amp;&amp;</div>
+          <div class="rune-card-name">Logical AND</div>
+          <div class="rune-card-hint">First falsy, else last</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">||</div>
+          <div class="rune-card-name">Logical OR</div>
+          <div class="rune-card-hint">First truthy, else last</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">!</div>
+          <div class="rune-card-name">Logical NOT</div>
+          <div class="rune-card-hint">Flip to boolean</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">??</div>
+          <div class="rune-card-name">Nullish coalescing</div>
+          <div class="rune-card-hint">Fallback on null / undefined</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">?:</div>
+          <div class="rune-card-name">Ternary</div>
+          <div class="rune-card-hint">If-else, inline</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Bitwise</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&amp;</div>
+          <div class="rune-card-name">Bitwise AND</div>
+          <div class="rune-card-hint">Intersect bits</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">|</div>
+          <div class="rune-card-name">Bitwise OR</div>
+          <div class="rune-card-hint">Union bits</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">^</div>
+          <div class="rune-card-name">Bitwise XOR</div>
+          <div class="rune-card-hint">Different bits win</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">~</div>
+          <div class="rune-card-name">Bitwise NOT</div>
+          <div class="rune-card-hint">Flip all bits</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&lt;&lt;</div>
+          <div class="rune-card-name">Left shift</div>
+          <div class="rune-card-hint">Shift bits left (×2ⁿ)</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&gt;&gt;</div>
+          <div class="rune-card-name">Signed right shift</div>
+          <div class="rune-card-hint">Shift right, keep sign</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">&gt;&gt;&gt;</div>
+          <div class="rune-card-name">Unsigned right shift</div>
+          <div class="rune-card-hint">Shift right, fill zeros</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">flags</div>
+          <div class="rune-card-name">Flag packing</div>
+          <div class="rune-card-hint">Many booleans in one number</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Type &amp; Reflection</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">typeof</div>
+          <div class="rune-card-name">typeof</div>
+          <div class="rune-card-hint">What kind of value is this?</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">instanceof</div>
+          <div class="rune-card-name">instanceof</div>
+          <div class="rune-card-hint">Walk the prototype chain</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">in</div>
+          <div class="rune-card-name">in</div>
+          <div class="rune-card-hint">Is this key in the object?</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">delete</div>
+          <div class="rune-card-name">delete</div>
+          <div class="rune-card-hint">Remove a property</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">void</div>
+          <div class="rune-card-name">void</div>
+          <div class="rune-card-hint">Always returns undefined</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">new</div>
+          <div class="rune-card-name">new</div>
+          <div class="rune-card-hint">Construct an instance</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Spread, Rest, Optional</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">...[]</div>
+          <div class="rune-card-name">Spread (array)</div>
+          <div class="rune-card-hint">Expand an array</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">...{}</div>
+          <div class="rune-card-name">Spread (object)</div>
+          <div class="rune-card-hint">Expand an object</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">...rest</div>
+          <div class="rune-card-name">Rest</div>
+          <div class="rune-card-hint">Collect remaining arguments</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">?.</div>
+          <div class="rune-card-name">Optional chaining</div>
+          <div class="rune-card-hint">Safely access nested props</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Strings</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">+</div>
+          <div class="rune-card-name">String concat</div>
+          <div class="rune-card-hint">Glue strings together</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">`${}`</div>
+          <div class="rune-card-name">Template literal</div>
+          <div class="rune-card-hint">Interpolate into a string</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category">
+      <h2>Control flow</h2>
+      <div class="runes-grid">
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">yield</div>
+          <div class="rune-card-name">yield</div>
+          <div class="rune-card-hint">Pause a generator, emit a value</div>
+        </div>
+        <div class="rune-card rune-card--todo">
+          <div class="rune-card-symbol">await</div>
+          <div class="rune-card-name">await</div>
+          <div class="rune-card-hint">Wait for a promise, then continue</div>
+        </div>
+      </div>
+    </div>
+
+    <runes-footer home="./"></runes-footer>
+    <script src="shared/runes-header.js"></script>
+    <script src="shared/runes-footer.js"></script>
+  </body>
+</html>
