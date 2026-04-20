@@ -138,6 +138,7 @@ section p {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+  white-space: nowrap;
 }
 
 /* Live value counter — tabular-nums so digits don't jitter. */
@@ -313,6 +314,96 @@ a.rune-card:hover {
 }
 .slot.wrapped {
   animation: pulse 600ms ease-out;
+}
+
+/* Number line — axis with ticks, two directional vectors, and a result marker. */
+.number-line {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  height: 80px;
+  margin: 1.5rem auto;
+}
+.number-line .axis {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-hairline);
+}
+.number-line .tick {
+  position: absolute;
+  top: 36px;
+  width: 1px;
+  height: 8px;
+  background: var(--color-hairline);
+  transform: translateX(-50%);
+}
+.number-line .tick-label {
+  position: absolute;
+  top: 48px;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+.number-line .vector {
+  position: absolute;
+  height: 4px;
+  border-radius: 2px;
+  transition:
+    left 200ms ease,
+    width 200ms ease;
+}
+.number-line .vector--a {
+  top: 31px;
+  background: var(--color-accent);
+}
+.number-line .vector--b {
+  top: 45px;
+  background: var(--color-remainder);
+}
+.number-line .marker {
+  position: absolute;
+  top: 40px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-ink);
+  transform: translate(-50%, -50%);
+  transition: left 200ms ease;
+}
+.number-line .marker-label {
+  position: absolute;
+  top: 12px;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-ink);
+  transition: left 200ms ease;
+}
+
+/* Explanatory subtext below a formula chip. */
+.note {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  max-width: 520px;
+  margin: 0.5rem auto 0;
+  line-height: 1.5;
+}
+
+/* Active-state styling for preset buttons (used in type-coercion grid, etc.).
+   The `:hover` override keeps the selected look when the cursor lands on it,
+   otherwise modest-ui's default hover flips it to dark-on-dark. */
+.controls button.active,
+.controls button.active:hover {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
 }
 
 /* Array-cycling visualisation — coloured tiles, one highlights as i % n moves. */

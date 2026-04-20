@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="../shared/rune-r.svg" />
+
+    <title>Addition, visually — understand JavaScript's + operator</title>
+    <meta
+      name="description"
+      content="A hands-on guide to JavaScript's addition (+) operator: watch numbers combine on a number line, then see why + does strange things when strings show up."
+    />
+    <meta
+      name="keywords"
+      content="javascript, addition, plus operator, string concatenation, coercion, interactive, learn javascript, visual"
+    />
+    <link rel="canonical" href="https://marcusmichaels.com/runes/addition/" />
+
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Addition, visually — understand JavaScript's + operator"
+    />
+    <meta
+      property="og:description"
+      content="Two interactive visualisations for JavaScript's + operator: vectors on a number line, and what happens when strings join the party."
+    />
+    <meta
+      property="og:url"
+      content="https://marcusmichaels.com/runes/addition/"
+    />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Addition, visually — understand JavaScript's + operator"
+    />
+    <meta
+      name="twitter:description"
+      content="Two interactive visualisations for JavaScript's + operator: vectors on a number line, and what happens when strings join the party."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Addition, visually",
+        "description": "A hands-on, interactive guide to JavaScript's addition (+) operator with two visualisations.",
+        "learningResourceType": "Interactive Tutorial",
+        "educationalLevel": "Beginner",
+        "inLanguage": "en",
+        "url": "https://marcusmichaels.com/runes/addition/",
+        "about": {
+          "@type": "Thing",
+          "name": "JavaScript addition operator"
+        },
+        "teaches": "How the + operator works: combining numbers on a number line, and how string operands flip + from arithmetic to concatenation."
+      }
+    </script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/thisismodest/modest-ui@v0.2.0/dist/modest-ui.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../shared/global.css" />
+  </head>
+  <body class="mdst-ui">
+    <runes-header home="../"></runes-header>
+
+    <h1>Addition</h1>
+    <p class="phonetic">/əˈdɪʃ(ə)n/</p>
+    <div class="rune" aria-hidden="true">+</div>
+    <p>
+      <code>a + b</code> gives you their <strong>sum</strong> &mdash; simple with
+      numbers, less simple when strings show up.
+    </p>
+
+    <section>
+      <h2>On a number line</h2>
+      <p>
+        Two moves along the line. First <code>a</code>, starting from zero. Then
+        <code>b</code>, starting where <code>a</code> landed. Where you end up
+        is <code>a + b</code>.
+      </p>
+      <div class="controls">
+        <label>
+          a =
+          <input id="nl-a" type="range" min="-8" max="8" value="3" />
+          <span class="counter" id="nl-a-val">3</span>
+        </label>
+        <label>
+          b =
+          <input id="nl-b" type="range" min="-8" max="8" value="5" />
+          <span class="counter" id="nl-b-val">5</span>
+        </label>
+      </div>
+      <div id="nl-viz" class="number-line"></div>
+      <div class="formula" id="nl-formula"></div>
+    </section>
+
+    <section>
+      <h2>When strings show up</h2>
+      <p>
+        If <em>either</em> operand is a string, <code>+</code> stops being
+        arithmetic and becomes concatenation. JavaScript coerces the other side
+        to a string and glues them together. Click the examples.
+      </p>
+      <div class="controls" id="tc-presets"></div>
+      <div class="formula" id="tc-formula"></div>
+      <p class="note" id="tc-note"></p>
+    </section>
+
+    <runes-footer home="../"></runes-footer>
+
+    <script src="script.js"></script>
+    <script src="../shared/runes-header.js"></script>
+    <script src="../shared/runes-footer.js"></script>
+  </body>
+</html>
