@@ -1,6 +1,6 @@
 # Roadmap — JavaScript Operators, Visually
 
-A goal-ordered list of 50 operators to build interactive, visual explainers for. Each entry has a short hook describing what the visualisation should *show*, not just *say*.
+A goal-ordered list of 50 operators to build interactive, visual explainers for. Each entry has a short hook describing what the visualisation should _show_, not just _say_.
 
 **Status key:** `[ ]` todo · `[~]` in progress · `[x]` done
 
@@ -8,15 +8,15 @@ A goal-ordered list of 50 operators to build interactive, visual explainers for.
 
 ## 1. Arithmetic (10)
 
-- [x] 01. `+` Addition — a number line with two vectors sliding and combining. Edge case: `+` with strings (concatenation) shown as typed dominoes joining.
-- [x] 02. `-` Subtraction — inverse of addition on the number line; show the direction matters (`5 - 2` vs `2 - 5`).
-- [ ] 03. `*` Multiplication — area grid (`3 × 4` as rows × columns of tiles). Visually motivates why it's repeated addition.
-- [ ] 04. `/` Division — `a` dots split into `b` equal stacks; show `a / b` as stack height and the remainder disappearing (sets up modulo).
-- [x] 05. `%` Modulo — dots packed into groups of `b`; leftover = remainder. Plus a cycle/clock and `arr[i % arr.length]`.
-- [ ] 06. `**` Exponentiation — nested boxes (`2 ** 3` = box inside box inside box) or a doubling tree.
-- [ ] 07. `++` Increment (prefix vs postfix) — a counter with two observers, one reading before, one after, showing the order-of-ops difference.
-- [ ] 08. `--` Decrement — mirror of `++`; reuse the prefix/postfix visual.
-- [ ] 09. Unary `+` — a "type coerce to number" funnel: drop in a string/bool/null, a number drops out.
+- [x] 1.  `+` Addition — a number line with two vectors sliding and combining. Edge case: `+` with strings (concatenation) shown as typed dominoes joining.
+- [x] 2.  `-` Subtraction — inverse of addition on the number line; show the direction matters (`5 - 2` vs `2 - 5`).
+- [ ] 3.  `*` Multiplication — area grid (`3 × 4` as rows × columns of tiles). Visually motivates why it's repeated addition.
+- [ ] 4.  `/` Division — `a` dots split into `b` equal stacks; show `a / b` as stack height and the remainder disappearing (sets up modulo).
+- [x] 5.  `%` Modulo — dots packed into groups of `b`; leftover = remainder. Plus a cycle/clock and `arr[i % arr.length]`.
+- [ ] 6.  `**` Exponentiation — nested boxes (`2 ** 3` = box inside box inside box) or a doubling tree.
+- [ ] 7.  `++` Increment (prefix vs postfix) — a counter with two observers, one reading before, one after, showing the order-of-ops difference.
+- [ ] 8.  `--` Decrement — mirror of `++`; reuse the prefix/postfix visual.
+- [ ] 9.  Unary `+` — a "type coerce to number" funnel: drop in a string/bool/null, a number drops out.
 - [ ] 10. Unary `-` — number line mirror; hammer-to-the-left flip.
 
 ## 2. Assignment (7)
@@ -48,7 +48,7 @@ A goal-ordered list of 50 operators to build interactive, visual explainers for.
 
 ## 5. Bitwise (8)
 
-- [ ] 29. `&` Bitwise AND — two 8-bit rows stacked; each column lights only if both above are lit.
+- [x] 29. `&` Bitwise AND — two 8-bit rows stacked; each column lights only if both above are lit.
 - [ ] 30. `|` Bitwise OR — same stack; column lights if either above is lit.
 - [ ] 31. `^` Bitwise XOR — column lights only if exactly one above is lit.
 - [ ] 32. `~` Bitwise NOT — a single 8-bit row flipping.

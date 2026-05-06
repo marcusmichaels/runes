@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="../shared/rune-r.svg" />
+
+    <title>Bitwise AND, visually — understand JavaScript's &amp; operator</title>
+    <meta
+      name="description"
+      content="A hands-on, interactive guide to JavaScript's bitwise AND (&) operator: see bits compared column by column, extract colour channels, replace modulo, check flags, and think in intersections."
+    />
+    <meta name="keywords" content="javascript, bitwise AND, operator, bitmask, flags, binary, interactive, visual" />
+    <link rel="canonical" href="https://marcusmichaels.com/runes/bitwise-and/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Bitwise AND, visually — understand JavaScript's & operator" />
+    <meta
+      property="og:description"
+      content="Five interactive visualisations that make JavaScript's bitwise AND (&) operator click: bit grids, colour masking, modulo shortcut, permission flags, and set intersection."
+    />
+    <meta property="og:url" content="https://marcusmichaels.com/runes/bitwise-and/" />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bitwise AND, visually — understand JavaScript's & operator" />
+    <meta
+      name="twitter:description"
+      content="Five interactive visualisations that make JavaScript's bitwise AND (&) operator click: bit grids, colour masking, modulo shortcut, permission flags, and set intersection."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Bitwise AND, visually",
+        "description": "A hands-on, interactive guide to JavaScript's bitwise AND (&) operator with five visualisations: bit-by-bit comparison, colour channel masking, the modulo shortcut, permission flags, and set intersection.",
+        "learningResourceType": "Interactive Tutorial",
+        "educationalLevel": "Intermediate",
+        "inLanguage": "en",
+        "url": "https://marcusmichaels.com/runes/bitwise-and/",
+        "about": {
+          "@type": "Thing",
+          "name": "JavaScript bitwise AND operator"
+        },
+        "teaches": "How the bitwise AND operator works: comparing bits column by column, masking colour channels from hex values, replacing modulo for powers of two, checking permission flags, and understanding AND as set intersection."
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thisismodest/modest-ui@v0.2.0/dist/modest-ui.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../shared/global.css" />
+  </head>
+  <body class="mdst-ui">
+    <runes-header home="../"></runes-header>
+
+    <h1>Bitwise AND</h1>
+    <p class="phonetic">/ˈbɪtwaɪz and/</p>
+    <div class="rune" aria-hidden="true">&amp;</div>
+
+    <p class="intro">
+      <code>a &amp; b</code> compares each bit position &mdash; the result is <strong>1</strong> only where <strong>both</strong> inputs are
+      1.
+    </p>
+
+    <div class="intro">
+      <p>
+        Think of a number as a row of on/off switches. <code>&amp;</code> takes two rows and asks:
+        <em>which switches are on in both?</em> Only those survive. Everything else gets zeroed out.
+      </p>
+      <p>
+        That sounds abstract until you realise you already use it. Hex colours like <code>#3B82F6</code> pack three values (red, green,
+        blue) into one number &mdash; <code>&amp;</code> is how you pull a single channel back out. File permissions (<code>rwx</code>) cram
+        three yes/no answers into one number &mdash; <code>&amp;</code> is how you check one without touching the others. Any time
+        you&rsquo;d otherwise write a pile of booleans, <code>&amp;</code> lets you ask &ldquo;is <em>this</em>
+        specific thing set?&rdquo; in a single operation.
+      </p>
+      <p>Think of it like a stencil; you lay the mask over the value, and only the bits that line up with the holes come through.</p>
+    </div>
+
+    <section>
+      <h2>Bit by bit</h2>
+      <p>
+        Each number is an 8-bit binary row. Slide <code>a</code> and <code>b</code> to see their bits light up &mdash; the result row keeps
+        only the columns where <em>both</em> are 1. It&rsquo;s the same idea as <code>a.filter(x&nbsp;=>&nbsp;b.includes(x))</code> but at
+        the bit level.
+      </p>
+      <div class="controls">
+        <label>
+          a =
+          <input id="s1-a" type="range" min="0" max="255" value="173" />
+          <span class="counter" id="s1-a-val">173</span>
+        </label>
+        <label>
+          b =
+          <input id="s1-b" type="range" min="0" max="255" value="214" />
+          <span class="counter" id="s1-b-val">214</span>
+        </label>
+      </div>
+      <div id="s1-grid" class="bit-grid"></div>
+      <div class="formula" id="s1-formula">173 &amp; 214 = 132</div>
+    </section>
+
+    <section>
+      <h2>Masking</h2>
+      <p>
+        Hex colours pack three channels into one integer. Masking with
+        <code>&amp; 0xFF</code> extracts a single byte &mdash; the same way you&rsquo;d slice a substring, but for bits. Drag the colour or
+        pick a channel to see it pulled apart.
+      </p>
+      <div class="controls">
+        <label>
+          colour =
+          <input id="s2-color" type="color" value="#3B82F6" />
+          <span class="counter" id="s2-hex">#3B82F6</span>
+        </label>
+      </div>
+      <div class="controls">
+        <button id="s2-ch-r" type="button">Red</button>
+        <button id="s2-ch-g" type="button">Green</button>
+        <button id="s2-ch-b" type="button">Blue</button>
+      </div>
+      <div id="s2-swatch" style="display: flex; gap: 8px; justify-content: center; margin: 1rem 0">
+        <div id="s2-swatch-full" style="width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--color-hairline)"></div>
+        <div id="s2-swatch-channel" style="width: 48px; height: 48px; border-radius: 10px; border: 1px solid var(--color-hairline)"></div>
+      </div>
+      <div id="s2-grid" class="bit-grid"></div>
+      <div class="formula" id="s2-formula"></div>
+      <p class="note" id="s2-note"></p>
+    </section>
+
+    <section>
+      <h2>The modulo shortcut</h2>
+      <p>
+        When the divisor is a power of 2,
+        <code>n &amp; (d&nbsp;-&nbsp;1)</code> gives the same result as <code>n&nbsp;%&nbsp;d</code>. The mask is all 1s in the lower bits
+        &mdash; it just keeps the remainder. Ring buffers, hash tables, and colour clamping all lean on this.
+      </p>
+      <div class="controls">
+        <label>
+          n =
+          <input id="s3-n" type="range" min="0" max="255" value="47" />
+          <span class="counter" id="s3-n-val">47</span>
+        </label>
+      </div>
+      <div class="controls">
+        <button id="s3-d2" type="button">d = 2</button>
+        <button id="s3-d4" type="button">d = 4</button>
+        <button id="s3-d8" type="button">d = 8</button>
+        <button id="s3-d16" type="button">d = 16</button>
+        <button id="s3-d256" type="button">d = 256</button>
+      </div>
+      <div id="s3-grid" class="bit-grid"></div>
+      <div class="formula" id="s3-formula"></div>
+      <p class="note" id="s3-note"></p>
+    </section>
+
+    <section>
+      <h2>Checking flags</h2>
+      <p>
+        Permissions are often packed as bits:
+        <code>READ&nbsp;=&nbsp;4</code>, <code>WRITE&nbsp;=&nbsp;2</code>, <code>EXEC&nbsp;=&nbsp;1</code>. AND with a single flag isolates
+        that bit &mdash; if the result is non-zero, the permission is set.
+      </p>
+      <div class="flag-toggles">
+        <div class="flag-toggle">
+          <span class="flag-toggle-label">READ (4)</span>
+          <input type="checkbox" id="s4-read" checked />
+        </div>
+        <div class="flag-toggle">
+          <span class="flag-toggle-label">WRITE (2)</span>
+          <input type="checkbox" id="s4-write" checked />
+        </div>
+        <div class="flag-toggle">
+          <span class="flag-toggle-label">EXEC (1)</span>
+          <input type="checkbox" id="s4-exec" />
+        </div>
+      </div>
+      <div class="controls">
+        <span>Check:</span>
+        <button id="s4-chk-read" type="button">READ</button>
+        <button id="s4-chk-write" type="button">WRITE</button>
+        <button id="s4-chk-exec" type="button">EXEC</button>
+      </div>
+      <div id="s4-grid" class="bit-grid"></div>
+      <div class="formula" id="s4-formula"></div>
+    </section>
+
+    <section>
+      <h2>It&rsquo;s just intersection</h2>
+      <p>
+        In arrays you&rsquo;d write
+        <code>a.filter(x&nbsp;=>&nbsp;b.includes(x))</code> to keep only shared items. <code>&amp;</code> does the same thing, one bit per
+        &ldquo;item&rdquo;. Toggle items in each set to see only the overlap survive.
+      </p>
+      <div class="bit-toggle-row">
+        <span class="bit-toggle-row-label">Set A</span>
+        <button id="s5-a7" type="button" class="active">7</button>
+        <button id="s5-a6" type="button">6</button>
+        <button id="s5-a5" type="button" class="active">5</button>
+        <button id="s5-a4" type="button">4</button>
+        <button id="s5-a3" type="button" class="active">3</button>
+        <button id="s5-a2" type="button">2</button>
+        <button id="s5-a1" type="button" class="active">1</button>
+        <button id="s5-a0" type="button" class="active">0</button>
+      </div>
+      <div class="bit-toggle-row">
+        <span class="bit-toggle-row-label">Set B</span>
+        <button id="s5-b7" type="button">7</button>
+        <button id="s5-b6" type="button" class="active">6</button>
+        <button id="s5-b5" type="button" class="active">5</button>
+        <button id="s5-b4" type="button">4</button>
+        <button id="s5-b3" type="button" class="active">3</button>
+        <button id="s5-b2" type="button" class="active">2</button>
+        <button id="s5-b1" type="button" class="active">1</button>
+        <button id="s5-b0" type="button">0</button>
+      </div>
+      <div id="s5-grid" class="bit-grid"></div>
+      <div class="formula" id="s5-formula"></div>
+      <p class="note" id="s5-note"></p>
+      <div class="code-snippet">
+        <pre>
+<span class="comment">// Finding what two sets have in common:</span>
+
+<span class="comment">// With arrays</span>
+const shared = a.filter(x =&gt; b.includes(x));
+
+<span class="comment">// With bit flags — same concept, packed into integers</span>
+const ADMIN = 1, EDITOR = 2, VIEWER = 4, MOD = 8;
+
+<span class="comment">// Combine flags with | (bitwise OR — sets bits)</span>
+const user = ADMIN | EDITOR | VIEWER; <span class="comment">// 7  (0b0111)</span>
+const required = ADMIN | MOD;         <span class="comment">// 9  (0b1001)</span>
+
+<span class="comment">// Check overlap with &amp; (keeps shared bits)</span>
+const overlap  = user &amp; required;     <span class="comment">// 1  (ADMIN only)</span>
+
+if (overlap) {
+  <span class="comment">/* user has at least one required role */</span>
+}
+</pre>
+      </div>
+      <small>
+        <code>|</code> (bitwise OR) is how you <em>combine</em> flags. <code>&amp;</code> is how you <em>check</em> them.
+        <a href="../bitwise-or/">See Bitwise OR &rarr;</a>
+      </small>
+    </section>
+
+    <runes-footer home="../"></runes-footer>
+
+    <script src="script.js"></script>
+    <script src="../shared/runes-header.js"></script>
+    <script src="../shared/runes-footer.js"></script>
+  </body>
+</html>
