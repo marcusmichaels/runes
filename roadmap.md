@@ -49,7 +49,7 @@ A goal-ordered list of 50 operators to build interactive, visual explainers for.
 ## 5. Bitwise (8)
 
 - [x] 29. `&` Bitwise AND — two 8-bit rows stacked; each column lights only if both above are lit.
-- [ ] 30. `|` Bitwise OR — same stack; column lights if either above is lit.
+- [x] 30. `|` Bitwise OR — same stack; column lights if either above is lit.
 - [ ] 31. `^` Bitwise XOR — column lights only if exactly one above is lit.
 - [ ] 32. `~` Bitwise NOT — a single 8-bit row flipping.
 - [ ] 33. `<<` Left shift — bits walk left, zeros fill in; annotate with `n * 2**k`.

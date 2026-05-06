@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="../shared/rune-r.svg" />
+
+    <title>Bitwise OR, visually — understand JavaScript's | operator</title>
+    <meta
+      name="description"
+      content="A hands-on, interactive guide to JavaScript's bitwise OR (|) operator: see bits combined column by column, stack permission flags, turn bits on with masks, and think in unions."
+    />
+    <meta name="keywords" content="javascript, bitwise OR, operator, bitmask, flags, binary, interactive, visual" />
+    <link rel="canonical" href="https://marcusmichaels.com/runes/bitwise-or/" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Bitwise OR, visually — understand JavaScript's | operator" />
+    <meta
+      property="og:description"
+      content="Five interactive visualisations that make JavaScript's bitwise OR (|) operator click: bit grids, combining flags, turning bits on, defaults and fallbacks, and set union."
+    />
+    <meta property="og:url" content="https://marcusmichaels.com/runes/bitwise-or/" />
+    <meta property="og:locale" content="en_GB" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bitwise OR, visually — understand JavaScript's | operator" />
+    <meta
+      name="twitter:description"
+      content="Five interactive visualisations that make JavaScript's bitwise OR (|) operator click: bit grids, combining flags, turning bits on, defaults and fallbacks, and set union."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Bitwise OR, visually",
+        "description": "A hands-on, interactive guide to JavaScript's bitwise OR (|) operator with five visualisations: bit-by-bit combination, combining permission flags, turning bits on with masks, defaults and fallbacks, and set union.",
+        "learningResourceType": "Interactive Tutorial",
+        "educationalLevel": "Intermediate",
+        "inLanguage": "en",
+        "url": "https://marcusmichaels.com/runes/bitwise-or/",
+        "about": {
+          "@type": "Thing",
+          "name": "JavaScript bitwise OR operator"
+        },
+        "teaches": "How the bitwise OR operator works: combining bits column by column, stacking permission flags, turning on specific bits with masks, filling in defaults, and understanding OR as set union."
+      }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/thisismodest/modest-ui@v0.2.0/dist/modest-ui.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../shared/global.css" />
+  </head>
+  <body class="mdst-ui">
+    <runes-header home="../"></runes-header>
+
+    <h1>Bitwise OR</h1>
+    <p class="phonetic">/ˈbɪtwaɪz ɔːr/</p>
+    <div class="rune" aria-hidden="true">|</div>
+
+    <p>
+      <code>a | b</code> compares each bit position &mdash; the result is <strong>1</strong> where <strong>either</strong> (or both) inputs
+      are 1.
+    </p>
+    <hr />
+    <div class="intro">
+      <p>
+        If AND is intersection, then OR is union. It keeps every bit that&rsquo;s on in <em>either</em> row. Nothing gets zeroed out &mdash;
+        bits only get added.
+      </p>
+      <p>
+        You&rsquo;ll reach for it whenever you need to <em>combine</em>
+        things: stacking multiple permission flags into one value, turning on features without touching the rest, or merging two sets of
+        options into one config integer.
+      </p>
+      <p>It&rsquo;s the opposite of a stencil &mdash; instead of blocking, it lets everything through from both sides.</p>
+    </div>
+    <hr />
+    <section>
+      <h2>Bit by bit</h2>
+      <p>
+        Each number is an 8-bit binary row. Slide <code>a</code> and <code>b</code> to see their bits light up &mdash; the result row keeps
+        every column where <em>either</em> is 1. It&rsquo;s the same idea as <code>[...new&nbsp;Set([...a,&nbsp;...b])]</code> but at the
+        bit level.
+      </p>
+      <div class="controls">
+        <label>
+          a =
+          <input id="s1-a" type="range" min="0" max="255" value="173" />
+          <span class="counter" id="s1-a-val">173</span>
+        </label>
+        <label>
+          b =
+          <input id="s1-b" type="range" min="0" max="255" value="214" />
+          <span class="counter" id="s1-b-val">214</span>
+        </label>
+      </div>
+      <bit-grid id="s1-grid" labels="a, b, a | b" separator="last"></bit-grid>
+      <div class="formula" id="s1-formula">173 | 214 = 255</div>
+    </section>
+
+    <section>
+      <h2>Combining flags</h2>
+      <p>
+        Permissions are often packed as bits:
+        <code>READ&nbsp;=&nbsp;4</code>, <code>WRITE&nbsp;=&nbsp;2</code>, <code>EXEC&nbsp;=&nbsp;1</code>. OR combines individual flags
+        into one value &mdash; each checked flag contributes its bit to the result. Toggle them to see bits stack up.
+      </p>
+      <div class="flag-toggles">
+        <div class="flag-toggle">
+          <span class="flag-toggle-label">READ (4)</span>
+          <input type="checkbox" id="s2-read" checked />
+        </div>
+        <div class="flag-toggle">
+          <span class="flag-toggle-label">WRITE (2)</span>
+          <input type="checkbox" id="s2-write" />
+        </div>
+        <div class="flag-toggle">
+          <span class="flag-toggle-label">EXEC (1)</span>
+          <input type="checkbox" id="s2-exec" checked />
+        </div>
+      </div>
+      <bit-grid id="s2-grid" labels="READ, WRITE, EXEC, result" separator="last"></bit-grid>
+      <div class="formula" id="s2-formula">READ | EXEC = 5</div>
+      <p class="note">
+        <code>|</code> sets bits. <code>&amp;</code> checks them. Together they&rsquo;re a complete read/write system for packed flags.
+      </p>
+    </section>
+
+    <section>
+      <h2>Masks &amp; hex notation</h2>
+      <p>
+        A <em>mask</em> is just a number with specific bits set. You&rsquo;ll often see them written in hex (<code>0x__</code>) because each
+        hex digit maps cleanly to 4 bits. The pattern is the same in both halves &mdash; <strong>1, 2, 4, 8</strong> &mdash; it just carries
+        left once you overflow the first digit.
+      </p>
+      <div class="code-snippet">
+        <pre>
+<span class="comment">// Each mask lights up exactly one bit:</span>
+0x01 =   1 = 0000 0001  <span class="comment">(bit 0)</span>
+0x02 =   2 = 0000 0010  <span class="comment">(bit 1)</span>
+0x04 =   4 = 0000 0100  <span class="comment">(bit 2)</span>
+0x08 =   8 = 0000 1000  <span class="comment">(bit 3)</span>
+0x10 =  16 = 0001 0000  <span class="comment">(bit 4)</span>
+0x20 =  32 = 0010 0000  <span class="comment">(bit 5)</span>
+0x40 =  64 = 0100 0000  <span class="comment">(bit 6)</span>
+0x80 = 128 = 1000 0000  <span class="comment">(bit 7)</span>
+</pre>
+      </div>
+      <p>OR with a mask turns ON that bit without affecting the others. Bits that were already on stay on &mdash; the mask only adds.</p>
+      <div class="controls">
+        <label>
+          value =
+          <input id="s3-val" type="range" min="0" max="255" value="100" />
+          <span class="counter" id="s3-val-display">100</span>
+        </label>
+      </div>
+      <div class="controls">
+        <span>OR with:</span>
+        <button id="s3-m01" type="button">0x01</button>
+        <button id="s3-m02" type="button">0x02</button>
+        <button id="s3-m04" type="button">0x04</button>
+        <button id="s3-m08" type="button">0x08</button>
+        <button id="s3-m80" type="button">0x80</button>
+      </div>
+      <bit-grid id="s3-grid" labels="value, mask, result" separator="last"></bit-grid>
+      <div class="formula" id="s3-formula"></div>
+      <p class="note" id="s3-note">OR never turns bits OFF &mdash; it only adds.</p>
+    </section>
+
+    <section>
+      <h2>Defaults and fallbacks</h2>
+      <p>
+        A common pattern: <code>options&nbsp;=&nbsp;userOpts&nbsp;|&nbsp;defaults</code> fills in missing flags. Bits the user already has
+        stay set. Bits they&rsquo;re missing get filled in from defaults.
+      </p>
+      <div class="controls">
+        <button id="s4-p1" type="button">User has READ only</button>
+        <button id="s4-p2" type="button">User has all</button>
+        <button id="s4-p3" type="button">User has none</button>
+      </div>
+      <bit-grid id="s4-grid" labels="user, defaults, result" separator="last"></bit-grid>
+      <div class="formula" id="s4-formula"></div>
+      <p class="note" id="s4-note">Bits the user already has stay set. Bits they're missing get filled in from defaults.</p>
+    </section>
+
+    <section>
+      <h2>It&rsquo;s just union</h2>
+      <p>
+        In arrays you&rsquo;d write
+        <code>[...new&nbsp;Set([...a,&nbsp;...b])]</code> to merge both sets. <code>|</code> does the same thing, one bit per
+        &ldquo;item&rdquo;.<br /><br /><small>Click any cell in the A or B rows to toggle it.</small>
+      </p>
+      <bit-grid id="s5-grid" labels="A, B, A | B" operation="or" interactive></bit-grid>
+      <div class="formula" id="s5-formula"></div>
+      <p class="note" id="s5-note"></p>
+      <div class="code-snippet">
+        <pre>
+<span class="comment">// Finding everything from either set:</span>
+
+<span class="comment">// With arrays</span>
+const merged = [...new Set([...a, ...b])];
+
+<span class="comment">// With bit flags — same concept, packed into integers</span>
+const ADMIN = 1, EDITOR = 2, VIEWER = 4, MOD = 8;
+
+<span class="comment">// Combine with | (bitwise OR — adds bits together)</span>
+const teamA = ADMIN | EDITOR;   <span class="comment">// 3  (0b0011)</span>
+const teamB = EDITOR | VIEWER;  <span class="comment">// 6  (0b0110)</span>
+
+const allRoles = teamA | teamB; <span class="comment">// 7  (0b0111) — everyone's roles merged</span>
+</pre>
+      </div>
+      <p class="note">
+        <code>&amp;</code> (bitwise AND) is how you <em>check</em> flags &mdash; <code>|</code> is how you <em>combine</em> them.
+        <a href="../bitwise-and/">See Bitwise AND &rarr;</a>
+      </p>
+    </section>
+
+    <runes-footer home="../"></runes-footer>
+
+    <script src="../shared/bit-grid.js"></script>
+    <script src="script.js"></script>
+    <script src="../shared/runes-header.js"></script>
+    <script src="../shared/runes-footer.js"></script>
+  </body>
+</html>

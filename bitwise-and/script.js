@@ -1,82 +1,12 @@
-// ---------- Helpers ----------
-
 const $ = (id) => document.getElementById(id);
-
-/**
- * Render an 8-bit grid with labelled rows.
- * Each row: { label, value, className }
- *   - label: string shown to the left
- *   - value: integer (0–255) whose bits to display
- *   - className: 'on' | 'result-on' applied to lit (1) cells
- *   - maskDim (optional): if true, cells where highlightMask bit is 0 get dimmed
- */
-function renderBitGrid(container, rows, { showPositions = true, highlightMask = null } = {}) {
-  container.innerHTML = "";
-
-  if (showPositions) {
-    const posRow = document.createElement("div");
-    posRow.className = "bit-positions";
-    // Empty spacer for the label column
-    const spacer = document.createElement("span");
-    posRow.appendChild(spacer);
-    for (let i = 7; i >= 0; i--) {
-      const lbl = document.createElement("span");
-      lbl.className = "bit-pos-label";
-      const val = document.createElement("span");
-      val.className = "bit-value";
-      val.textContent = 1 << i;
-      const idx = document.createElement("span");
-      idx.className = "bit-index";
-      idx.textContent = `bit ${i}`;
-      lbl.appendChild(val);
-      lbl.appendChild(idx);
-      posRow.appendChild(lbl);
-    }
-    container.appendChild(posRow);
-  }
-
-  rows.forEach((row, rowIdx) => {
-    if (rowIdx === rows.length - 1 && rows.length > 1) {
-      const sep = document.createElement("div");
-      sep.className = "bit-separator";
-      container.appendChild(sep);
-    }
-
-    const rowEl = document.createElement("div");
-    rowEl.className = "bit-row";
-
-    const label = document.createElement("span");
-    label.className = "bit-row-label";
-    label.textContent = row.label;
-    rowEl.appendChild(label);
-
-    for (let i = 7; i >= 0; i--) {
-      const bit = (row.value >> i) & 1;
-      const cell = document.createElement("div");
-      cell.className = "bit-cell";
-
-      if (bit === 1) cell.classList.add(row.className);
-
-      if (highlightMask !== null && row.maskDim) {
-        const maskBit = (highlightMask >> i) & 1;
-        if (maskBit === 0) cell.style.opacity = "0.35";
-      }
-
-      cell.textContent = bit;
-      rowEl.appendChild(cell);
-    }
-
-    container.appendChild(rowEl);
-  });
-}
 
 // ---------- Section 1: Bit by bit ----------
 
+const s1Grid = $("s1-grid");
 const s1A = $("s1-a");
 const s1B = $("s1-b");
 const s1AVal = $("s1-a-val");
 const s1BVal = $("s1-b-val");
-const s1Grid = $("s1-grid");
 const s1Formula = $("s1-formula");
 
 function renderSection1() {
@@ -86,13 +16,7 @@ function renderSection1() {
 
   s1AVal.textContent = a;
   s1BVal.textContent = b;
-
-  renderBitGrid(s1Grid, [
-    { label: "a", value: a, className: "on" },
-    { label: "b", value: b, className: "on" },
-    { label: "a & b", value: result, className: "result-on" },
-  ]);
-
+  s1Grid.setRows([a, b, result]);
   s1Formula.textContent = `${a} & ${b} = ${result}`;
 }
 
@@ -130,7 +54,6 @@ function renderSection2() {
   s2Hex.textContent = hex.toUpperCase();
   s2SwatchFull.style.backgroundColor = hex;
 
-  // Show the isolated channel as a colour
   if (currentChannel.shift === 16) {
     s2SwatchChannel.style.backgroundColor = `rgb(${channelValue}, 0, 0)`;
   } else if (currentChannel.shift === 8) {
@@ -139,17 +62,8 @@ function renderSection2() {
     s2SwatchChannel.style.backgroundColor = `rgb(0, 0, ${channelValue})`;
   }
 
-  // Show the byte being extracted with the bit grid (8-bit view of the shifted value)
   const shifted = (rgb >> currentChannel.shift) & 0xff;
-  renderBitGrid(
-    s2Grid,
-    [
-      { label: "shifted", value: shifted, className: "on", maskDim: true },
-      { label: "0xFF", value: 0xff, className: "on", maskDim: false },
-      { label: "result", value: channelValue, className: "result-on", maskDim: false },
-    ],
-    { highlightMask: 0xff },
-  );
+  s2Grid.setRows([shifted, 0xff, channelValue], { highlightMask: 0xff, dimRows: [0] });
 
   const shiftStr =
     currentChannel.shift > 0
@@ -170,7 +84,6 @@ channels.forEach((ch) => {
 });
 
 s2Color.addEventListener("input", renderSection2);
-
 $("s2-ch-r").classList.add("active");
 renderSection2();
 
@@ -200,17 +113,7 @@ function renderSection3() {
   const resultMod = n % d;
 
   s3NVal.textContent = n;
-
-  renderBitGrid(
-    s3Grid,
-    [
-      { label: "n", value: n, className: "on", maskDim: true },
-      { label: `d-1 (${mask})`, value: mask, className: "on", maskDim: false },
-      { label: "n & (d-1)", value: resultAnd, className: "result-on", maskDim: false },
-    ],
-    { highlightMask: mask },
-  );
-
+  s3Grid.setRows([n, mask, resultAnd], { highlightMask: mask, dimRows: [0] });
   s3Formula.textContent = `${n} & ${mask} = ${resultAnd}   ≡   ${n} % ${d} = ${resultMod}`;
   s3Note.textContent = currentDivisor.note;
 }
@@ -226,7 +129,6 @@ divisors.forEach((dv) => {
 });
 
 s3N.addEventListener("input", renderSection3);
-
 $("s3-d4").classList.add("active");
 renderSection3();
 
@@ -256,16 +158,7 @@ function renderSection4() {
   const result = perms & flag;
   const truthy = result !== 0;
 
-  renderBitGrid(
-    s4Grid,
-    [
-      { label: "perms", value: perms, className: "on", maskDim: false },
-      { label: currentCheck, value: flag, className: "on", maskDim: false },
-      { label: "result", value: result, className: "result-on", maskDim: false },
-    ],
-    { highlightMask: flag },
-  );
-
+  s4Grid.setRows([perms, flag, result]);
   const symbol = truthy ? "✓ truthy" : "✗ falsy";
   s4Formula.textContent = `${perms} & ${currentCheck} = ${result}  →  ${symbol}`;
 }
@@ -299,52 +192,17 @@ const s5Grid = $("s5-grid");
 const s5Formula = $("s5-formula");
 const s5Note = $("s5-note");
 
-// Read set state from button active classes
-function getSetValue(prefix) {
-  let val = 0;
-  for (let i = 0; i < 8; i++) {
-    const btn = $(`${prefix}${i}`);
-    if (btn.classList.contains("active")) val |= 1 << i;
-  }
-  return val;
-}
-
-function renderSection5() {
-  const a = getSetValue("s5-a");
-  const b = getSetValue("s5-b");
-  const result = a & b;
-
-  // Collect set members for display
-  const setA = [];
-  const setB = [];
-  const setR = [];
-  for (let i = 0; i < 8; i++) {
-    if ((a >> i) & 1) setA.push(i);
-    if ((b >> i) & 1) setB.push(i);
-    if ((result >> i) & 1) setR.push(i);
-  }
-
-  renderBitGrid(s5Grid, [
-    { label: "A", value: a, className: "on" },
-    { label: "B", value: b, className: "on" },
-    { label: "A & B", value: result, className: "result-on" },
-  ]);
-
-  s5Formula.textContent = `{${setA.join(",")}} ∩ {${setB.join(",")}} = {${setR.join(",")}}`;
-  s5Note.textContent = setR.length
-    ? `${setR.length} item${setR.length > 1 ? "s" : ""} in common — exactly what & keeps.`
-    : "No overlap — & gives 0.";
-}
-
-// Wire up toggle buttons for both sets
-for (let i = 0; i < 8; i++) {
-  ["s5-a", "s5-b"].forEach((prefix) => {
-    const btn = $(`${prefix}${i}`);
-    btn.addEventListener("click", () => {
-      btn.classList.toggle("active");
-      renderSection5();
-    });
+function updateS5Display(values) {
+  const sets = values.map((v) => {
+    const m = [];
+    for (let i = 0; i < 8; i++) if ((v >> i) & 1) m.push(i);
+    return m;
   });
+  s5Formula.textContent = `{${sets[0].join(",")}} \u2229 {${sets[1].join(",")}} = {${sets[2].join(",")}}`;
+  s5Note.textContent = sets[2].length
+    ? `${sets[2].length} item${sets[2].length > 1 ? "s" : ""} in common \u2014 exactly what & keeps.`
+    : "No overlap \u2014 & gives 0.";
 }
 
-renderSection5();
+s5Grid.addEventListener("change", (e) => updateS5Display(e.detail.values));
+updateS5Display(s5Grid.values);
